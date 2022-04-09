@@ -5,7 +5,7 @@ from process_vecs import only_normal_letters
 
 rnd = Random(133742069)
 
-early_solutions = ['eineinhalb', 'vereinbarung', 'aufeinander', 'anstieg', 'nunmehr']
+early_solutions = []
 
 if __name__ == '__main__':
     with open('data/frequent_words.txt', 'r', encoding='UTF-8') as f:
@@ -22,10 +22,10 @@ if __name__ == '__main__':
     shuffle_list = list(words)
     shuffle_list.sort()
     rnd.shuffle(shuffle_list)
-    with open('data/valid_nearest.dat', 'rb') as f:
-        valid_nearest_words, _ = pickle.load(f)
-    valid_nearest_words = set(valid_nearest_words)
-    shuffle_list = [w for w in shuffle_list if w in valid_nearest_words]
+    # with open('data/valid_nearest.dat', 'rb') as f:
+    #     valid_nearest_words, _ = pickle.load(f)
+    # valid_nearest_words = set(valid_nearest_words)
+    # shuffle_list = [w for w in shuffle_list if w in valid_nearest_words]
     shuffle_list = early_solutions + shuffle_list
     print('# words:', len(shuffle_list))
     with open('data/secrets.txt', 'w', encoding='utf-8') as f:

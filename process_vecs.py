@@ -14,9 +14,9 @@ def valid_guess(s: str) -> bool:
 
 
 def only_normal_letters(word: str, allow_capitalization:bool = False) -> bool:
-    lowers = set(c for c in 'abcdefghijklmnopqrstuvwxyzäöǘß')
-    uppers = set(c for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜẞ')
-    both = lowers.union(uppers)
+    lowers = 'abcdefghijklmnoprstuvzĉĝĥĵŝŭ'
+    uppers = lowers.upper()
+    both = set(c for c in lowers).union(set(c for c in uppers))
     if allow_capitalization:
         return all(c in both for c in word)
     else:
@@ -38,12 +38,13 @@ if __name__ == '__main__':
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS guesses (word text PRIMARY KEY, vec blob)""")
     print("created table")
-    normal_words = load_dic('data/de.dic', True)
-    print("# words in dictionary:", len(normal_words))
+    # TODO re-add when dictionary exists
+    # normal_words = load_dic('data/de.dic', True)
+    # print("# words in dictionary:", len(normal_words))
     valid_nearest = []
     valid_nearest_mat = None
     eliminated = 0
-    with open('data/cc.de.300.vec', 'r', encoding='utf-8') as w2v_file:
+    with open('data/cc.eo.300.vec', 'r', encoding='utf-8') as w2v_file:
         _ = w2v_file.readline()
         for n, line in enumerate(w2v_file):
             # careful! some data sets (e.g. dewiki100.txt) have non-breaking spaces, which get split
@@ -51,7 +52,7 @@ if __name__ == '__main__':
             words = line.rstrip().split(' ')
             word = words[0]
             vec = array([float(w1) for w1 in words[1:]])
-            if word in normal_words:
+            if only_normal_letters(word):
                 valid_nearest.append(word)
                 if valid_nearest_mat is None:
                     valid_nearest_mat = [vec]

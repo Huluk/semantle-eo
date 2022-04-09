@@ -15,8 +15,8 @@ from pytz import utc
 import word2vec
 from process_similar import get_nearest
 
-NUM_SECRETS = 4951
-FIRST_DAY = date(2022, 3, 18)
+NUM_SECRETS = 3150
+FIRST_DAY = date(2022, 4, 9)
 scheduler = BackgroundScheduler()
 scheduler.start()
 

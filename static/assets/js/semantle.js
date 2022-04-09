@@ -14,10 +14,10 @@ let guesses = [];
 let guessed = new Set();
 let guessCount = 0;
 let model = null;
-let numPuzzles = 4951;
+let numPuzzles = 3150;
 const now = Date.now();
 const today = Math.floor(Date.now() / 86400000);
-const initialDay = new Date('2022-03-18') / 86400000;
+const initialDay = new Date('2022-04-09') / 86400000;
 const puzzleNumber = (today - initialDay) % numPuzzles;
 const yesterdayPuzzleNumber = (puzzleNumber + numPuzzles - 1) % numPuzzles;
 const storage = window.localStorage;
@@ -567,5 +567,5 @@ Statistik: <br/>
 // do this when the file loads instead of waiting for DOM to be ready to avoid
 // a flash of unstyled content
 Semantle.checkMedia();
-    
+
 window.addEventListener('load', async () => { Semantle.init() });
